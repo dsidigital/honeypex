@@ -1,0 +1,612 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Honeypex - Interface</title>
+    <style>
+        :root {
+            --neon-blue: #00daff;
+            --neon-purple: #8137ff;
+        }
+
+        body, html {
+            margin: 0;
+            padding: 0;
+            height: 100%;
+            font-family: Arial, sans-serif;
+            overflow: hidden;
+        }
+
+        /* Fondo fijo del túnel */
+        body {
+            background-image: url('img/Honeypex Background.png');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            background-color: #000;
+        }
+
+        .tunnel-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url('img/Honeypex Background.png');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            z-index: 0;
+            pointer-events: none;
+        }
+
+        /* Contenedor de scroll tipo PPT */
+        .ppt-container {
+            height: 100vh;
+            overflow-y: scroll;
+            scroll-snap-type: y mandatory;
+            position: relative;
+            z-index: 1;
+            scrollbar-width: none; /* Firefox */
+        }
+        .ppt-container::-webkit-scrollbar { display: none; } /* Chrome/Safari */
+
+        section {
+            height: 100vh;
+            scroll-snap-align: start;
+            display: flex;
+            justify-content: flex-start;
+            align-items: center;
+            position: relative;
+            background: transparent;
+        }
+
+        /* Barra de navegación */
+        .navbar {
+            position: fixed;
+            top: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: #000;
+            border-radius: 50px;
+            display: flex;
+            align-items: center;
+            padding: 10px 40px;
+            z-index: 1000;
+            border: 1px solid #333;
+        }
+
+        .logo-nav {
+            font-weight: bold;
+            color: white;
+            font-size: 24px;
+            display: flex;
+            align-items: center;
+            margin-right: 40px;
+        }
+        .logo-nav span { color: var(--neon-purple); margin-left: 2px; }
+
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 30px;
+        }
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 14px;
+            letter-spacing: 1px;
+            transition: color 0.3s;
+        }
+        .nav-links a:hover { color: var(--neon-blue); }
+
+        .divider {
+            width: 1px;
+            height: 25px;
+            background-color: #0044ff;
+        }
+
+        /* Título principal PROJEKT HONEYPEX */
+        .main-title {
+            position: fixed;
+            top: calc(50% - 18rem);
+            left: 19rem;
+            z-index: 102;
+            opacity: 0;
+            animation: titleAppear 1s ease-out 2.5s forwards;
+        }
+
+        .main-title .projekt {
+            font-size: 3.5rem;
+            font-weight: 900;
+            color: #000;
+            letter-spacing: 0.05em;
+            margin: 0;
+            line-height: 1;
+            text-transform: uppercase;
+        }
+
+        .main-title .honeypex {
+            margin-left: 6rem !important;
+            font-size: 4rem;
+            font-weight: 900;
+            background: linear-gradient(90deg, #00daff 0%, #8137ff 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            letter-spacing: 0.05em;
+            margin: 0;
+            line-height: 1;
+            text-transform: uppercase;
+        }
+
+        @keyframes titleAppear {
+            0% { opacity: 0; transform: translateY(20px); }
+            100% { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Contenido de las secciones */
+        .content-block {
+            background: rgba(255, 255, 255, 0.2);
+            padding: 2.5rem;
+            border-radius: 20px;
+            backdrop-filter: blur(10px);
+            max-width: calc(100% - 5rem);
+            text-align: left;
+            color: #000;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            margin-left: 32rem;
+            margin-top: 15rem;
+            margin-right: 50px;
+            opacity: 0;
+            transform: translateY(30px);
+            animation: blockAppear 0.8s ease-out forwards;
+        }
+
+        @keyframes blockAppear {
+            0% { opacity: 0; transform: translateY(30px); }
+            100% { opacity: 1; transform: translateY(0); }
+        }
+
+        .content-block h3 {
+            font-size: 1.8rem;
+            margin-bottom: 2rem;
+            color: #000;
+            font-weight: 900;
+            line-height: 1.2;
+            text-transform: uppercase;
+        }
+
+        .content-columns {
+            display: flex;
+            gap: 20px;
+            align-items: flex-start;
+            margin-bottom: 2rem;
+        }
+
+        .content-icon {
+            flex-shrink: 0;
+            width: 3.5rem;
+            height: 3.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .content-icon svg {
+            width: 100%;
+            height: 100%;
+            fill: #000;
+        }
+
+        .content-text {
+            flex: 1;
+            font-size: 1.3rem;
+            line-height: 1.5;
+            color: #000;
+            font-weight: 500;
+        }
+
+        .content-buttons {
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+            margin-left: 4.5rem;
+        }
+
+        .content-btn {
+            background: #0066ff;
+            color: white;
+            border: none;
+            padding: 10px 24px;
+            border-radius: 25px;
+            font-size: 0.85rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .content-btn:hover {
+            background: #0052cc;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 102, 255, 0.4);
+        }
+
+         /* Content block transparente con imagen */
+         .content-block-transparent {
+            background: transparent;
+            padding: 2rem;
+            border-radius: 20px;
+            backdrop-filter: none;
+            text-align: center;
+            color: #000;
+            border: none;
+            margin-right: 50px;
+            right: 0;
+            position: absolute;
+            opacity: 0;
+            transform: translateY(30px);
+            animation: blockAppear 0.8s ease-out forwards;
+        }
+
+        .content-block-transparent h3 {
+            font-size: 2rem;
+            margin-bottom: 30px;
+            color: #000;
+            font-weight: 700;
+            text-align: center;
+        }
+
+        .content-block-transparent .image-text {
+            font-size: 2rem;
+            line-height: 1.6;
+            color: #000;
+            margin-bottom: 30px;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .content-image-placeholder {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto;
+        }
+
+        .qr-code-img {
+            width: 18rem !important;
+            object-fit: contain;
+        }
+
+        /* Contenedor Global */
+        .global-site-container {
+            position: relative;
+            margin: 0 auto;
+            width: 100%;
+            max-width: 1600px; /* Desktop LG */
+            height: 100vh;
+            overflow: hidden;
+        }
+
+        /* Logo Principal Único (incluye panal, iconos y título) */
+        .main-logo-fixed {
+            position: absolute;
+            left: 50px;
+            top: 50%;
+            transform: translateY(-50%);
+            z-index: 100;
+            width: 800px;
+            height: auto;
+            opacity: 0;
+            animation: emergeDesdeTunel 3.5s cubic-bezier(0.19, 1, 0.22, 1) forwards;
+        }
+
+        .logo-nav-img {
+            width: 12rem;
+            object-fit: contain;
+        }
+
+        @keyframes emergeDesdeTunel {
+            0% { transform: translate(calc(60vw - 50px), calc(15vh - 50%)) scale(0.05); opacity: 0; filter: blur(10px); }
+            30% { opacity:0.5; }
+            100% { transform: translate(0, -50%) scale(1); opacity: 1; filter: blur(0px); }
+        }
+
+        /* Media Queries */
+        @media (max-width: 1440px) {
+            .content-block-transparent .image-text { 
+                font-size: 1.5rem;
+            }
+            .global-site-container { max-width: 1440px; }
+            .main-logo-fixed { width: 600px; left: 40px; }
+            .content-block { 
+                margin-left: 25rem;
+                margin-top: 18rem;
+                max-width: calc(100% - 2rem);
+            }
+        }
+
+        @media (max-width: 720px) {
+            .global-site-container { max-width: 720px; }
+            .main-logo-fixed { width: 450px; left: 20px; }
+            .content-block { margin-left: 20px; margin-top: 40vh; max-width: 90%; }
+            .content-text { font-size: 1.1rem; }
+            .content-buttons { margin-left: 0; justify-content: flex-start; }
+        }
+
+        @media (max-width: 480px) {
+            .global-site-container { max-width: 100%; }
+            .main-logo-fixed { width: 320px; left: 10px; top: 30%; }
+            .content-block { margin-left: 10px; margin-top: 45vh; max-width: 95%; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="tunnel-bg"></div>
+
+    <header class="navbar">
+        <div class="logo-nav">
+            <img src="img/Honeypex Logo Wisepex.png" alt="Logo Honeypex Wisepex" class="logo-nav-img">
+        </div>
+        <div class="nav-links">
+            <div class="divider"></div>
+            <a href="#block-1">FEATURES</a>
+            <div class="divider"></div>
+            <a href="#block-5">UMFRAGE</a>  
+            <div class="divider"></div>
+            <a href="#block-8">MEHR</a>
+        </div>
+    </header>
+
+    <div class="global-site-container">
+        <img src="img/Projektlogo-single.png" alt="Projekt Honeypex" class="main-logo-fixed">
+
+        <div class="ppt-container">
+        <section><!-- Inicio --></section>
+
+        <!-- BLOQUE 1 -->
+        <section id="block-1">
+            <div class="content-block">
+                <h3>DEN FUHRPARK IM GRIFF – AUF EINEN BLICK</h3>
+                <div class="content-columns">
+                    <div class="content-icon">
+                        <svg viewBox="0 0 24 24"><path d="M8.59 16.59L13.17 12 8.59 7.41 10 6l6 6-6 6-1.41-1.41z"/></svg>
+                    </div>
+                    <div class="content-text">
+                        Jedes Fahrzeug hat seine feste „Akte“: Standort, Verantwortlicher, Zustand und Historie. So será aus „Wo ist der Wagen?“ endlich wieder Klarheit statt Chaos.
+                    </div>
+                </div>
+                <div class="content-buttons">
+                    <button class="content-btn">Fuhrparkübersicht</button>
+                    <button class="content-btn">Standortklarheit</button>
+                    <button class="content-btn">Einsatzbereit</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- BLOQUE 2 -->
+        <section id="block-2">
+            <div class="content-block">
+                <h3>UVV & PRÜFTERMINE, DIE NICHT MEHR UNTERGEHEN</h3>
+                <div class="content-columns">
+                    <div class="content-icon">
+                        <svg viewBox="0 0 24 24"><path d="M8.59 16.59L13.17 12 8.59 7.41 10 6l6 6-6 6-1.41-1.41z"/></svg>
+                    </div>
+                    <div class="content-text">
+                        Honeypex zeigt dir glasklar: Welche Fahrzeuge sind fällig, überfällig, gesperrt oder mängelbehaftet – inklusive Prüfer, Maßnahmen und Nachweis. Damit seid ihr sicher, sauber und termintreu unterwegs.
+                    </div>
+                </div>
+                <div class="content-buttons">
+                    <button class="content-btn">UVV-Sicherheit</button>
+                    <button class="content-btn">Termintreue</button>
+                    <button class="content-btn">Prüfnachweis</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- BLOQUE 3 -->
+        <section id="block-3">
+            <div class="content-block">
+                <h3>FAHRER-CHECK: KURZ PRÜFEN, SICHER FAHREN</h3>
+                <div class="content-columns">
+                    <div class="content-icon">
+                        <svg viewBox="0 0 24 24"><path d="M8.59 16.59L13.17 12 8.59 7.41 10 6l6 6-6 6-1.41-1.41z"/></svg>
+                    </div>
+                    <div class="content-text">
+                        Vor der Nutzung digital checken, Mängel melden – und wenn’s kritisch wird, wird das Fahrzeug direkt gesperrt und an die Instandhaltung weitergegeben. So verhindert ihr Ärger, bevor er passiert.
+                    </div>
+                </div>
+                <div class="content-buttons">
+                    <button class="content-btn">Fahrercheck</button>
+                    <button class="content-btn">Sofortmeldung</button>
+                    <button class="content-btn">Sperrlogik</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- BLOQUE 4 -->
+        <section id="block-4">
+            <div class="content-block">
+                <h3>POOLFAHRZEUGE OHNE TELEFONKETTE</h3>
+                <div class="content-columns">
+                    <div class="content-icon">
+                        <svg viewBox="0 0 24 24"><path d="M8.59 16.59L13.17 12 8.59 7.41 10 6l6 6-6 6-1.41-1.41z"/></svg>
+                    </div>
+                    <div class="content-text">
+                        Wer hat’s, wer braucht’s, wann ist’s frei? Die Ausleihe läuft mit Kalender- und Genehmigungslogik – damit gemeinsame Fahrzeuge wirklich gemeinsam nutzbar werden.
+                    </div>
+                </div>
+                <div class="content-buttons">
+                    <button class="content-btn">Ausleihe</button>
+                    <button class="content-btn">Verfügbarkeit</button>
+                    <button class="content-btn">Planungssicherheit</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- BLOQUE 5 -->
+        <section id="block-5">
+            <div class="content-block">
+                <h3>WERKZEUGE & MASCHINEN: EIN REGISTER STATT EXCEL</h3>
+                <div class="content-columns">
+                    <div class="content-icon">
+                        <svg viewBox="0 0 24 24"><path d="M8.59 16.59L13.17 12 8.59 7.41 10 6l6 6-6 6-1.41-1.41z"/></svg>
+                    </div>
+                    <div class="content-text">
+                        Bohrmaschine, Kabeltrommel oder Spezialgerät – alles sauber erfasst, mit Status wie „in Reparatur“ oer „verliehen“. Ihr wisst jederzeit, was einsatzbereit ist und was nicht.
+                    </div>
+                </div>
+                <div class="content-buttons">
+                    <button class="content-btn">Werkzeugregister</button>
+                    <button class="content-btn">Maschinenstatus</button>
+                    <button class="content-btn">Zuständigkeit</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- BLOQUE 6 -->
+        <section id="block-6">
+            <div class="content-block">
+                <h3>PRÜFUNGEN NACH REALITÄT – NICHT NACH THEORIE</h3>
+                <div class="content-columns">
+                    <div class="content-icon">
+                        <svg viewBox="0 0 24 24"><path d="M8.59 16.59L13.17 12 8.59 7.41 10 6l6 6-6 6-1.41-1.41z"/></svg>
+                    </div>
+                    <div class="content-text">
+                        Werkstatt ist nicht Baustelle: Einsatzbedingungen wie Staub, Feuchte und Witterung steuern die Prüffristen nachvollziehbar. Genau so, wie es im Alltag wirklich läuft.
+                    </div>
+                </div>
+                <div class="content-buttons">
+                    <button class="content-btn">Einsatzabhängig</button>
+                    <button class="content-btn">Risikofristen</button>
+                    <button class="content-btn">Elektrosicherheit</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- BLOQUE 7 -->
+        <section id="block-7">
+            <div class="content-block">
+                <h3>SICHERHEIT IMMER IM BLICK</h3>
+                <div class="content-columns">
+                    <div class="content-icon">
+                        <svg viewBox="0 0 24 24"><path d="M8.59 16.59L13.17 12 8.59 7.41 10 6l6 6-6 6-1.41-1.41z"/></svg>
+                    </div>
+                    <div class="content-text">
+                        Sicherheitsbeleuchtung, Fluchtweg-Komponenten & Co. sind standortbezogen transparent: Was hängt wo? Wer ist zuständig? Was ist fällig? Schluss mit „irgendwo müsste es noch ein Protokoll geben“.
+                    </div>
+                </div>
+                <div class="content-buttons">
+                    <button class="content-btn">Arbeitsstätten</button>
+                    <button class="content-btn">Betreiberpflichten</button>
+                    <button class="content-btn">Dokumentation</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- BLOQUE 8 -->
+        <section id="block-8">
+            <div class="content-block">
+                <h3>FRISTENRADAR – WENN‘S SEIN MUSS AUCH MIT SPERRE</h3>
+                <div class="content-columns">
+                    <div class="content-icon">
+                        <svg viewBox="0 0 24 24"><path d="M8.59 16.59L13.17 12 8.59 7.41 10 6l6 6-6 6-1.41-1.41z"/></svg>
+                    </div>
+                    <div class="content-text">
+                        Pflichten werden als Regelwerke gepflegt (fest, risikobasiert, ereignisbasiert) – mit Erinnerungen über Rollen hinweg bis hin zur Sperrlogik bei Überfälligkeit. Damit bleibt nichts liegen, nur weil es hektisch wird.
+                    </div>
+                </div>
+                <div class="content-buttons">
+                    <button class="content-btn">Fristenradar</button>
+                    <button class="content-btn">Eskalation</button>
+                    <button class="content-btn">Regelwerk</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- BLOQUE 9 -->
+        <section id="block-9">
+            <div class="content-block">
+                <h3>PRÜFUNGEN VOR ORT – SCHRITT FÜR SCHRITT</h3>
+                <div class="content-columns">
+                    <div class="content-icon">
+                        <svg viewBox="0 0 24 24"><path d="M8.59 16.59L13.17 12 8.59 7.41 10 6l6 6-6 6-1.41-1.41z"/></svg>
+                    </div>
+                    <div class="content-text">
+                        Digitale Checklisten führen sicher durch Sicht-, Funktions- und Messpunkte: Pflichtfelder, Fotodokumentation, Mängelkategorien – und bei Bedarf auch offline auf der Baustelle. Ergebnis: gemacht ist gemacht – und sauber dokumentiert.
+                    </div>
+                </div>
+                <div class="content-buttons">
+                    <button class="content-btn">Checklisten</button>
+                    <button class="content-btn">Fotobeleg</button>
+                    <button class="content-btn">Baustellentauglich</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- BLOQUE 10 -->
+        <section id="block-10">
+            <div class="content-block">
+                <h3>NACHWEISE AUF KNOPFDRUCK</h3>
+                <div class="content-columns">
+                    <div class="content-icon">
+                        <svg viewBox="0 0 24 24"><path d="M8.59 16.59L13.17 12 8.59 7.41 10 6l6 6-6 6-1.41-1.41z"/></svg>
+                    </div>
+                    <div class="content-text">
+                        Pro Gerät und Vorgang landen Protokolle, Zertifikate, Fotos und Berichte zentral, versioniert und exportierbar im System. Prüfberichte sind nicht nachträglich änderbar, sondern historisch nachvollziehbar.
+                    </div>
+                </div>
+                <div class="content-buttons">
+                    <button class="content-btn">Revisionssicher</button>
+                    <button class="content-btn">Export</button>
+                    <button class="content-btn">Audit</button>
+                </div>
+            </div>
+        </section>
+
+        <section id="gallery">
+            <div class="content-block-transparent">
+                <p class="image-text">
+                    Teile uns mit, ob wir deine Erwartungen treffen oder was wir noch aufnehmen sollten, um dein Interesse zu wecken. Scanne den Code oder klicke ihn an.
+                </p>
+
+                <div class="content-image-placeholder">
+                    <img src="img/qr.jpeg" alt="QR Code" class="qr-code-img">
+                </div>
+            </div>
+        </section>
+    </div>
+</div>
+
+    <script>
+        // Scroll al top al cargar
+        window.onbeforeunload = function () { window.scrollTo(0, 0); };
+        window.onload = function () {
+            const container = document.querySelector('.ppt-container');
+            if (container) container.scrollTop = 0;
+            window.scrollTo(0, 0);
+        };
+        if (history.scrollRestoration) history.scrollRestoration = 'manual';
+
+        // Navegación
+        document.querySelectorAll('.nav-links a').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const targetId = this.getAttribute('href').substring(1);
+                const targetSection = document.getElementById(targetId);
+                const container = document.querySelector('.ppt-container');
+                if (targetSection && container) {
+                    container.scrollTo({ top: targetSection.offsetTop, behavior: 'smooth' });
+                }
+            });
+        });
+    </script>
+</body>
+</html>
