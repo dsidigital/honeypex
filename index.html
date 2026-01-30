@@ -159,7 +159,7 @@
             color: #000;
             border: 1px solid rgba(255, 255, 255, 0.3);
             margin-left: 32rem;
-            margin-top: 15rem;
+            margin-top: 6rem;   /* antes: 15rem; reducido para menos distancia entre bloques */
             margin-right: 50px;
             opacity: 0;
             transform: translateY(30px);
@@ -209,7 +209,7 @@
             color: #000;
             font-weight: 500;
         }
-
+/*
         .content-buttons {
             display: flex;
             gap: 12px;
@@ -235,7 +235,7 @@
             background: #0052cc;
             transform: translateY(-2px);
             box-shadow: 0 5px 15px rgba(0, 102, 255, 0.4);
-        }
+        }*/
 
          /* Content block transparente con imagen */
          .content-block-transparent {
@@ -332,18 +332,75 @@
             }
         }
 
+        /* 2. CONFIGURACIÓN PARA MÓVILES (Ajusta el diseño para pantallas pequeñas) */
         @media (max-width: 720px) {
-            .global-site-container { max-width: 720px; }
-            .main-logo-fixed { width: 450px; left: 20px; }
-            .content-block { margin-left: 20px; margin-top: 40vh; max-width: 90%; }
-            .content-text { font-size: 1.1rem; }
-            .content-buttons { margin-left: 0; justify-content: flex-start; }
-        }
+            /* Ajuste de la barra de navegación */
+            .navbar {
+                padding: 10px 15px;
+                width: 90%;
+                justify-content: space-between;
+                top: 15px;
+            }
+            .nav-links {
+                gap: 12px;
+            }
+            .nav-links a {
+                font-size: 11px; /* Letra pequeña para que no se amontone */
+            }
+            .logo-nav-img {
+                width: 7rem;
+            }
+            .divider {
+                display: none; /* Quitamos divisores en móvil para ganar espacio */
+            }
 
-        @media (max-width: 480px) {
-            .global-site-container { max-width: 100%; }
-            .main-logo-fixed { width: 320px; left: 10px; top: 30%; }
-            .content-block { margin-left: 10px; margin-top: 45vh; max-width: 95%; }
+            /* Ajuste del Logo Principal */
+            .main-logo-fixed {
+                width: 85%;
+                left: 50%;
+                top: 30%; /* Subimos el logo para dejar espacio al texto abajo */
+                transform: translate(-50%, -50%);
+            }
+
+            /* Ajuste de los Bloques de Contenido */
+            .content-block {
+                margin: 45vh auto 0 auto; /* Empuja el bloque debajo del logo */
+                width: 85%;
+                padding: 1.5rem;
+                max-width: none;
+            }
+            .content-block h3 {
+                font-size: 1.2rem;
+                margin-bottom: 1rem;
+            }
+            .content-text {
+                font-size: 1rem;
+            }
+ /*           .content-buttons {
+                margin-left: 0; Alinea botones al centro/izquierda en móvil 
+                justify-content: center;
+            }*/
+
+            /* Nueva animación simplificada para que el logo no "vuele" fuera de la pantalla */
+            @keyframes emergeDesdeTunel {
+                0% { transform: translate(-50%, -50%) scale(0.05); opacity: 0; filter: blur(10px); }
+                100% { transform: translate(-50%, -50%) scale(1); opacity: 1; filter: blur(0px); }
+            }
+            
+            /* Ajuste para el bloque transparente final (QR) */
+            .content-block-transparent {
+                position: relative;
+                margin-top: 40vh;
+                margin-right: 0;
+                width: 100%;
+            }
+            .content-block-transparent .image-text {
+                font-size: 1.2rem;
+                padding: 0 20px;
+            }
+            .qr-code-img {
+                width: 12rem !important;
+            }
         }
     </style>
 </head>
@@ -383,11 +440,6 @@
                         Jedes Fahrzeug hat seine feste „Akte“: Standort, Verantwortlicher, Zustand und Historie. So será aus „Wo ist der Wagen?“ endlich wieder Klarheit statt Chaos.
                     </div>
                 </div>
-                <div class="content-buttons">
-                    <button class="content-btn">Fuhrparkübersicht</button>
-                    <button class="content-btn">Standortklarheit</button>
-                    <button class="content-btn">Einsatzbereit</button>
-                </div>
             </div>
         </section>
 
@@ -402,11 +454,6 @@
                     <div class="content-text">
                         Honeypex zeigt dir glasklar: Welche Fahrzeuge sind fällig, überfällig, gesperrt oder mängelbehaftet – inklusive Prüfer, Maßnahmen und Nachweis. Damit seid ihr sicher, sauber und termintreu unterwegs.
                     </div>
-                </div>
-                <div class="content-buttons">
-                    <button class="content-btn">UVV-Sicherheit</button>
-                    <button class="content-btn">Termintreue</button>
-                    <button class="content-btn">Prüfnachweis</button>
                 </div>
             </div>
         </section>
@@ -423,11 +470,6 @@
                         Vor der Nutzung digital checken, Mängel melden – und wenn’s kritisch wird, wird das Fahrzeug direkt gesperrt und an die Instandhaltung weitergegeben. So verhindert ihr Ärger, bevor er passiert.
                     </div>
                 </div>
-                <div class="content-buttons">
-                    <button class="content-btn">Fahrercheck</button>
-                    <button class="content-btn">Sofortmeldung</button>
-                    <button class="content-btn">Sperrlogik</button>
-                </div>
             </div>
         </section>
 
@@ -442,11 +484,6 @@
                     <div class="content-text">
                         Wer hat’s, wer braucht’s, wann ist’s frei? Die Ausleihe läuft mit Kalender- und Genehmigungslogik – damit gemeinsame Fahrzeuge wirklich gemeinsam nutzbar werden.
                     </div>
-                </div>
-                <div class="content-buttons">
-                    <button class="content-btn">Ausleihe</button>
-                    <button class="content-btn">Verfügbarkeit</button>
-                    <button class="content-btn">Planungssicherheit</button>
                 </div>
             </div>
         </section>
@@ -463,11 +500,6 @@
                         Bohrmaschine, Kabeltrommel oder Spezialgerät – alles sauber erfasst, mit Status wie „in Reparatur“ oer „verliehen“. Ihr wisst jederzeit, was einsatzbereit ist und was nicht.
                     </div>
                 </div>
-                <div class="content-buttons">
-                    <button class="content-btn">Werkzeugregister</button>
-                    <button class="content-btn">Maschinenstatus</button>
-                    <button class="content-btn">Zuständigkeit</button>
-                </div>
             </div>
         </section>
 
@@ -482,11 +514,6 @@
                     <div class="content-text">
                         Werkstatt ist nicht Baustelle: Einsatzbedingungen wie Staub, Feuchte und Witterung steuern die Prüffristen nachvollziehbar. Genau so, wie es im Alltag wirklich läuft.
                     </div>
-                </div>
-                <div class="content-buttons">
-                    <button class="content-btn">Einsatzabhängig</button>
-                    <button class="content-btn">Risikofristen</button>
-                    <button class="content-btn">Elektrosicherheit</button>
                 </div>
             </div>
         </section>
@@ -503,11 +530,6 @@
                         Sicherheitsbeleuchtung, Fluchtweg-Komponenten & Co. sind standortbezogen transparent: Was hängt wo? Wer ist zuständig? Was ist fällig? Schluss mit „irgendwo müsste es noch ein Protokoll geben“.
                     </div>
                 </div>
-                <div class="content-buttons">
-                    <button class="content-btn">Arbeitsstätten</button>
-                    <button class="content-btn">Betreiberpflichten</button>
-                    <button class="content-btn">Dokumentation</button>
-                </div>
             </div>
         </section>
 
@@ -522,11 +544,6 @@
                     <div class="content-text">
                         Pflichten werden als Regelwerke gepflegt (fest, risikobasiert, ereignisbasiert) – mit Erinnerungen über Rollen hinweg bis hin zur Sperrlogik bei Überfälligkeit. Damit bleibt nichts liegen, nur weil es hektisch wird.
                     </div>
-                </div>
-                <div class="content-buttons">
-                    <button class="content-btn">Fristenradar</button>
-                    <button class="content-btn">Eskalation</button>
-                    <button class="content-btn">Regelwerk</button>
                 </div>
             </div>
         </section>
@@ -543,12 +560,6 @@
                         Digitale Checklisten führen sicher durch Sicht-, Funktions- und Messpunkte: Pflichtfelder, Fotodokumentation, Mängelkategorien – und bei Bedarf auch offline auf der Baustelle. Ergebnis: gemacht ist gemacht – und sauber dokumentiert.
                     </div>
                 </div>
-                <div class="content-buttons">
-                    <button class="content-btn">Checklisten</button>
-                    <button class="content-btn">Fotobeleg</button>
-                    <button class="content-btn">Baustellentauglich</button>
-                </div>
-            </div>
         </section>
 
         <!-- BLOQUE 10 -->
@@ -562,11 +573,6 @@
                     <div class="content-text">
                         Pro Gerät und Vorgang landen Protokolle, Zertifikate, Fotos und Berichte zentral, versioniert und exportierbar im System. Prüfberichte sind nicht nachträglich änderbar, sondern historisch nachvollziehbar.
                     </div>
-                </div>
-                <div class="content-buttons">
-                    <button class="content-btn">Revisionssicher</button>
-                    <button class="content-btn">Export</button>
-                    <button class="content-btn">Audit</button>
                 </div>
             </div>
         </section>
