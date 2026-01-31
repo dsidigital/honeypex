@@ -22,7 +22,7 @@
         body {
             background-image: url('img/Honeypex Background.png');
             background-size: cover;
-            background-position: right center;
+            background-position: center center;
             background-repeat: no-repeat;
             background-attachment: fixed;
             background-color: #000;
@@ -334,6 +334,10 @@
 
         /* 2. CONFIGURACIÓN PARA MÓVILES (Ajusta el diseño para pantallas pequeñas) */
         @media (max-width: 720px) {
+            .body {
+                background-position: 110% center;
+            }
+            
             /* Ajuste de la barra de navegación */
             .navbar {
                 padding: 10px 15px;
