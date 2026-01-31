@@ -335,11 +335,17 @@
         /* 2. CONFIGURACIÓN PARA MÓVILES (Ajusta el diseño para pantallas pequeñas) */
         @media (max-width: 720px) {
             body, .tunnel-bg {
-        /* 100% empuja la imagen a la derecha, 110% la empuja un poco más allá 
-           haciendo que el lado izquierdo desaparezca más */
-                background-position: 100% center !important; 
-                background-attachment: scroll; /* Mejor rendimiento en móvil */
-           }
+        /* background-position: right center fuerza que el borde derecho 
+           de la imagen se pegue al borde derecho de la pantalla */
+                background-position: right center !important; 
+        
+        /* 'cover' asegura que la imagen cubra todo el alto, 
+           aunque se recorte por la izquierda */
+                background-size: cover !important;
+        
+                background-attachment: scroll; 
+                background-repeat: no-repeat;
+            }
             
             /* Ajuste de la barra de navegación */
             .navbar {
@@ -408,6 +414,12 @@
             .qr-code-img {
                 width: 10rem !important;
                 margin-bottom: 10vh;
+            }
+
+            .global-site-container {
+                 width: 100vw; /* Asegura que no sea más ancho que la pantalla */
+                 max-width: 100%;
+                 overflow: hidden;
             }
         }
     </style>
