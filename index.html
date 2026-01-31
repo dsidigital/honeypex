@@ -334,9 +334,12 @@
 
         /* 2. CONFIGURACIÓN PARA MÓVILES (Ajusta el diseño para pantallas pequeñas) */
         @media (max-width: 720px) {
-            body {
-                background-position: 110% center;
-            }
+            body, .tunnel-bg {
+        /* 100% empuja la imagen a la derecha, 110% la empuja un poco más allá 
+           haciendo que el lado izquierdo desaparezca más */
+                background-position: 110% center !important; 
+                background-attachment: scroll; /* Mejor rendimiento en móvil */
+           }
             
             /* Ajuste de la barra de navegación */
             .navbar {
